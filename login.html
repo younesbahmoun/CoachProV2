@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- Modal Connexion -->
+<div class="modal fade" id="loginModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <i class="fas fa-sign-in-alt me-2"></i>Connexion
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body p-4">
+                <form id="loginForm">
+                    <div class="mb-3">
+                        <label for="loginEmail" class="form-label">
+                            <i class="fas fa-envelope me-2"></i>Email
+                        </label>
+                        <input type="email" class="form-control form-control-lg" id="loginEmail" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="loginPassword" class="form-label">
+                            <i class="fas fa-lock me-2"></i>Mot de passe
+                        </label>
+                        <input type="password" class="form-control form-control-lg" id="loginPassword" required>
+                    </div>
+                    <div class="form-check mb-3">
+                        <input type="checkbox" class="form-check-input" id="rememberMe">
+                        <label class="form-check-label" for="rememberMe">
+                            Se souvenir de moi
+                        </label>
+                    </div>
+                    <button type="submit" class="btn btn-primary-custom btn-custom w-100 btn-lg">
+                        <i class="fas fa-sign-in-alt me-2"></i>Se Connecter
+                    </button>
+                </form>
+                <div class="text-center mt-3">
+                    <a href="#" class="text-decoration-none">Mot de passe oublié ?</a>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <p class="mb-0 text-muted">Pas encore de compte ? 
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#registerModal" data-bs-dismiss="modal">
+                        Inscrivez-vous
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

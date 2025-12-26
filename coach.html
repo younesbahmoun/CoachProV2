@@ -1,0 +1,1483 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tableau de Bord Coach | CoachingSport</title>
+    
+    <!-- Bootstrap 5.3 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #4CAF50;
+            --secondary-color: #2196F3;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+        }
+        
+        .sidebar {
+            background: linear-gradient(180deg, #1a472a 0%, #2d5a3d 100%);
+            min-height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 260px;
+            z-index: 1000;
+        }
+        
+        .sidebar .nav-link {
+            color: rgba(255,255,255,0.8);
+            padding: 15px 20px;
+            border-left: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .sidebar .nav-link:hover {
+            background-color: rgba(255,255,255,0.1);
+            color: white;
+            border-left-color: var(--primary-color);
+        }
+        
+        .sidebar .nav-link.active {
+            background-color: rgba(76, 175, 80, 0.3);
+            color: white;
+            border-left-color: var(--primary-color);
+        }
+        
+        .main-content {
+            margin-left: 260px;
+            padding: 20px;
+        }
+        
+        .card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+        }
+        
+        .stat-card-2 {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+        
+        .stat-card-3 {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+        
+        .stat-card-4 {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+        
+        .btn-custom {
+            border-radius: 25px;
+            padding: 10px 25px;
+            font-weight: 600;
+        }
+        
+        .sportif-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                position: relative;
+                min-height: auto;
+            }
+            .main-content {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar d-flex flex-column">
+    <!-- Logo -->
+    <div class="text-center py-4" style="background: rgba(0,0,0,0.2);">
+        <h4 class="text-white mb-0">
+            <i class="fas fa-dumbbell me-2"></i>CoachingSport
+        </h4>
+        <small class="text-white-50">Espace Coach</small>
+    </div>
+    
+    <!-- Profile Card -->
+    <div class="p-3 border-bottom border-success">
+        <div class="d-flex align-items-center">
+            <img src="https://i.pravatar.cc/60?img=12" alt="Photo" class="rounded-circle me-3" width="60" height="60" style="border: 3px solid #4CAF50;">
+            <div>
+                <h6 class="text-white mb-0">Jean Dupont</h6>
+                <small class="text-white-50">
+                    <i class="fas fa-star text-warning me-1"></i>4.8 (156 avis)
+                </small>
+                <div>
+                    <span class="badge bg-success">Expert</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Navigation -->
+    <nav class="nav flex-column flex-grow-1 pt-3">
+        <a class="nav-link active" href="#">
+            <i class="fas fa-tachometer-alt me-2"></i>Tableau de Bord
+        </a>
+        <a class="nav-link" href="#">
+            <i class="fas fa-calendar-check me-2"></i>Mes Séances
+        </a>
+        <a class="nav-link" href="#">
+            <i class="fas fa-plus-circle me-2"></i>Créer une Séance
+        </a>
+        <a class="nav-link" href="#">
+            <i class="fas fa-users me-2"></i>Mes Sportifs
+        </a>
+        <a class="nav-link" href="#">
+            <i class="fas fa-clock me-2"></i>Disponibilités
+        </a>
+        <a class="nav-link" href="#">
+            <i class="fas fa-chart-line me-2"></i>Statistiques
+        </a>
+        <a class="nav-link" href="#">
+            <i class="fas fa-euro-sign me-2"></i>Revenus
+        </a>
+        <a class="nav-link" href="#">
+            <i class="fas fa-user-circle me-2"></i>Mon Profil
+        </a>
+        <a class="nav-link" href="#">
+            <i class="fas fa-cog me-2"></i>Paramètres
+        </a>
+    </nav>
+    
+    <!-- Logout -->
+    <div class="p-3 border-top border-success">
+        <a class="nav-link text-danger" href="#">
+            <i class="fas fa-sign-out-alt me-2"></i>Déconnexion
+        </a>
+    </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main-content">
+    
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold mb-0">
+                <i class="fas fa-tachometer-alt me-2 text-success"></i>Tableau de Bord
+            </h2>
+            <p class="text-muted mb-0">Bienvenue Jean ! Gérez votre activité de coaching</p>
+        </div>
+        <button class="btn btn-success btn-custom" data-bs-toggle="modal" data-bs-target="#addSeanceModal">
+            <i class="fas fa-plus-circle me-2"></i>Créer une Séance
+        </button>
+    </div>
+    
+    <!-- Statistiques Cards -->
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="stat-card text-center">
+                <i class="fas fa-calendar-check fa-3x mb-3"></i>
+                <h3 class="fw-bold mb-2">45</h3>
+                <p class="mb-0">Séances ce mois</p>
+                <small class="opacity-75">+12% vs mois dernier</small>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-card stat-card-2 text-center">
+                <i class="fas fa-euro-sign fa-3x mb-3"></i>
+                <h3 class="fw-bold mb-2">2,025€</h3>
+                <p class="mb-0">Revenus ce mois</p>
+                <small class="opacity-75">+8% vs mois dernier</small>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-card stat-card-3 text-center">
+                <i class="fas fa-users fa-3x mb-3"></i>
+                <h3 class="fw-bold mb-2">28</h3>
+                <p class="mb-0">Sportifs actifs</p>
+                <small class="opacity-75">+5 nouveaux</small>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-card stat-card-4 text-center">
+                <i class="fas fa-star fa-3x mb-3"></i>
+                <h3 class="fw-bold mb-2">4.8/5</h3>
+                <p class="mb-0">Note moyenne</p>
+                <small class="opacity-75">156 avis</small>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Quick Actions -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="fw-bold mb-3">
+                <i class="fas fa-bolt me-2 text-warning"></i>Actions Rapides
+            </h5>
+            <div class="row g-3">
+                <div class="col-md-3">
+                    <button class="btn btn-outline-success w-100 btn-custom" data-bs-toggle="modal" data-bs-target="#addSeanceModal">
+                        <i class="fas fa-plus-circle d-block fs-3 mb-2"></i>
+                        Créer une Séance
+                    </button>
+                </div>
+                <div class="col-md-3">
+                    <button class="btn btn-outline-primary w-100 btn-custom" data-bs-toggle="modal" data-bs-target="#disponibilitesModal">
+                        <i class="fas fa-clock d-block fs-3 mb-2"></i>
+                        Gérer Disponibilités
+                    </button>
+                </div>
+                <div class="col-md-3">
+                    <button class="btn btn-outline-info w-100 btn-custom" data-bs-toggle="modal" data-bs-target="#editProfileModal">
+                        <i class="fas fa-user-edit d-block fs-3 mb-2"></i>
+                        Modifier Profil
+                    </button>
+                </div>
+                <div class="col-md-3">
+                    <button class="btn btn-outline-warning w-100 btn-custom" data-bs-toggle="modal" data-bs-target="#statsModal">
+                        <i class="fas fa-chart-bar d-block fs-3 mb-2"></i>
+                        Voir Statistiques
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <!-- Séances à Venir -->
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-header bg-white py-3">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0 fw-bold">
+                            <i class="fas fa-calendar-alt me-2 text-primary"></i>
+                            Mes Prochaines Séances
+                        </h5>
+                        <span class="badge bg-primary rounded-pill">12 séances</span>
+                    </div>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Sportif</th>
+                                    <th>Discipline</th>
+                                    <th>Date & Heure</th>
+                                    <th>Lieu</th>
+                                    <th>Statut</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Séance 1 -->
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <img src="https://i.pravatar.cc/40?img=15" alt="Sportif" class="sportif-avatar me-2">
+                                            <div>
+                                                <strong>Sophie Martin</strong>
+                                                <div class="small text-muted">Intermédiaire</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-primary">Musculation</span>
+                                    </td>
+                                    <td>
+                                        <strong>Aujourd'hui</strong><br>
+                                        <small class="text-danger">
+                                            <i class="fas fa-clock"></i> 14:00 - 15:00
+                                        </small>
+                                    </td>
+                                    <td>
+                                        <small>
+                                            <i class="fas fa-map-marker-alt text-danger me-1"></i>
+                                            Salle Sport Plus
+                                        </small>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-success status-badge">Confirmée</span>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-sm btn-info text-white" data-bs-toggle="modal" data-bs-target="#detailSeanceCoachModal">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editSeanceModal">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#markCompletedModal">
+                                            <i class="fas fa-check"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                
+                                <!-- Séance 2 -->
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <img src="https://i.pravatar.cc/40?img=25" alt="Sportif" class="sportif-avatar me-2">
+                                            <div>
+                                                <strong>Marc Leblanc</strong>
+                                                <div class="small text-muted">Avancé</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-success">Cardio</span>
+                                    </td>
+                                    <td>
+                                        <strong>Demain</strong><br>
+                                        <small class="text-muted">
+                                            <i class="fas fa-clock"></i> 09:00 - 10:00
+                                        </small>
+                                    </td>
+                                    <td>
+                                        <small>
+                                            <i class="fas fa-map-marker-alt text-danger me-1"></i>
+                                            Parc Monceau
+                                        </small>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-success status-badge">Confirmée</span>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-sm btn-info text-white" data-bs-toggle="modal" data-bs-target="#detailSeanceCoachModal">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editSeanceModal">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#cancelSeanceCoachModal">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                
+                                <!-- Séance 3 -->
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <img src="https://i.pravatar.cc/40?img=30" alt="Sportif" class="sportif-avatar me-2">
+                                            <div>
+                                                <strong>Julie Petit</strong>
+                                                <div class="small text-muted">Débutant</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-info">Fitness</span>
+                                    </td>
+                                    <td>
+                                        <strong>17 Jan 2025</strong><br>
+                                        <small class="text-muted">
+                                            <i class="fas fa-clock"></i> 18:00 - 19:00
+                                        </small>
+                                    </td>
+                                    <td>
+                                        <small>
+                                            <i class="fas fa-map-marker-alt text-danger me-1"></i>
+                                            Salle Sport Plus
+                                        </small>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-warning text-dark status-badge">En attente</span>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-sm btn-success" title="Accepter">
+                                            <i class="fas fa-check"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-danger" title="Refuser">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                
+                                <!-- Séance 4 - Sans sportif -->
+                                <tr class="table-secondary">
+                                    <td>
+                                        <div class="text-muted fst-italic">
+                                            <i class="fas fa-user-slash me-2"></i>
+                                            Créneaux disponible
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-primary">Musculation</span>
+                                    </td>
+                                    <td>
+                                        <strong>20 Jan 2025</strong><br>
+                                        <small class="text-muted">
+                                            <i class="fas fa-clock"></i> 10:00 - 11:00
+                                        </small>
+                                    </td>
+                                    <td>
+                                        <small>
+                                            <i class="fas fa-map-marker-alt text-danger me-1"></i>
+                                            Salle Sport Plus
+                                        </small>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-light text-dark status-badge">Disponible</span>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editSeanceModal">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteSeanceModal">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card-footer bg-white text-center">
+                    <a href="#" class="text-decoration-none">
+                        Voir toutes mes séances <i class="fas fa-arrow-right ms-1"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Demandes en Attente -->
+            <div class="card mt-4">
+                <div class="card-header bg-white py-3">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0 fw-bold">
+                            <i class="fas fa-hourglass-half me-2 text-warning"></i>
+                            Demandes de Réservation
+                        </h5>
+                        <span class="badge bg-warning text-dark rounded-pill">3 nouvelles</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <!-- Demande 1 -->
+                    <div class="border rounded p-3 mb-3">
+                        <div class="d-flex align-items-start">
+                            <img src="https://i.pravatar.cc/60?img=35" alt="Sportif" class="rounded-circle me-3" width="60" height="60">
+                            <div class="flex-grow-1">
+                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                    <div>
+                                        <h6 class="mb-0 fw-bold">Laura Dubois</h6>
+                                        <small class="text-muted">Niveau: Débutant</small>
+                                    </div>
+                                    <span class="badge bg-warning text-dark">Nouveau</span>
+                                </div>
+                                <p class="mb-2">
+                                    <strong>Séance:</strong> Yoga - 22 Jan 2025 à 16:00<br>
+                                    <strong>Objectif:</strong> Découvrir le yoga, améliorer ma souplesse
+                                </p>
+                                <div class="d-flex gap-2">
+                                    <button class="btn btn-success btn-sm btn-custom">
+                                        <i class="fas fa-check me-1"></i>Accepter
+                                    </button>
+                                    <button class="btn btn-danger btn-sm btn-custom">
+                                        <i class="fas fa-times me-1"></i>Refuser
+                                    </button>
+                                    <button class="btn btn-outline-info btn-sm btn-custom">
+                                        <i class="fas fa-eye me-1"></i>Voir profil
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Demande 2 -->
+                    <div class="border rounded p-3 mb-3">
+                        <div class="d-flex align-items-start">
+                            <img src="https://i.pravatar.cc/60?img=40" alt="Sportif" class="rounded-circle me-3" width="60" height="60">
+                            <div class="flex-grow-1">
+                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                    <div>
+                                        <h6 class="mb-0 fw-bold">Pierre Moreau</h6>
+                                        <small class="text-muted">Niveau: Intermédiaire</small>
+                                    </div>
+                                    <span class="badge bg-info">Régulier</span>
+                                </div>
+                                <p class="mb-2">
+                                    <strong>Séance:</strong> Musculation - 23 Jan 2025 à 11:00<br>
+                                    <strong>Objectif:</strong> Prise de masse, focus jambes
+                                </p>
+                                <div class="d-flex gap-2">
+                                    <button class="btn btn-success btn-sm btn-custom">
+                                        <i class="fas fa-check me-1"></i>Accepter
+                                    </button>
+                                    <button class="btn btn-danger btn-sm btn-custom">
+                                        <i class="fas fa-times me-1"></i>Refuser
+                                    </button>
+                                    <button class="btn btn-outline-info btn-sm btn-custom">
+                                        <i class="fas fa-history me-1"></i>Historique (8 séances)
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Demande 3 -->
+                    <div class="border rounded p-3">
+                        <div class="d-flex align-items-start">
+                            <img src="https://i.pravatar.cc/60?img=45" alt="Sportif" class="rounded-circle me-3" width="60" height="60">
+                            <div class="flex-grow-1">
+                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                    <div>
+                                        <h6 class="mb-0 fw-bold">Emma Bernard</h6>
+                                        <small class="text-muted">Niveau: Avancé</small>
+                                    </div>
+                                    <span class="badge bg-warning text-dark">Nouveau</span>
+                                </div>
+                                <p class="mb-2">
+                                    <strong>Séance:</strong> Crossfit - 25 Jan 2025 à 19:00<br>
+                                    <strong>Objectif:</strong> Préparation compétition Crossfit
+                                </p>
+                                <div class="d-flex gap-2">
+                                    <button class="btn btn-success btn-sm btn-custom">
+                                        <i class="fas fa-check me-1"></i>Accepter
+                                    </button>
+                                    <button class="btn btn-danger btn-sm btn-custom">
+                                        <i class="fas fa-times me-1"></i>Refuser
+                                    </button>
+                                    <button class="btn btn-outline-info btn-sm btn-custom">
+                                        <i class="fas fa-eye me-1"></i>Voir profil
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Sidebar Droite -->
+        <div class="col-lg-4">
+            
+            <!-- Calendrier de la Semaine -->
+            <div class="card">
+                <div class="card-header bg-white py-3">
+                    <h5 class="mb-0 fw-bold">
+                        <i class="fas fa-calendar-week me-2 text-primary"></i>
+                        Cette Semaine
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <!-- Lundi -->
+                    <div class="mb-3 pb-3 border-bottom">
+                        <div class="d-flex justify-content-between mb-2">
+                            <strong>Lundi 13 Jan</strong>
+                            <span class="badge bg-primary">5 séances</span>
+                        </div>
+                        <div class="small">
+                            <div class="mb-1">
+                                <i class="fas fa-clock text-muted me-2"></i>09:00 - Musculation
+                            </div>
+                            <div class="mb-1">
+                                <i class="fas fa-clock text-muted me-2"></i>11:00 - Cardio
+                            </div>
+                            <div class="mb-1">
+                                <i class="fas fa-clock text-muted me-2"></i>14:00 - Yoga
+                            </div>
+                            <div class="mb-1">
+                                <i class="fas fa-clock text-muted me-2"></i>16:00 - Fitness
+                            </div>
+                            <div>
+                                <i class="fas fa-clock text-muted me-2"></i>18:00 - Musculation
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Mardi -->
+                    <div class="mb-3 pb-3 border-bottom">
+                        <div class="d-flex justify-content-between mb-2">
+                            <strong>Mardi 14 Jan</strong>
+                            <span class="badge bg-success">4 séances</span>
+                        </div>
+                        <div class="small text-muted">
+                            09:00, 11:00, 14:00, 18:00
+                        </div>
+                    </div>
+                    
+                    <!-- Mercredi -->
+                    <div class="mb-3 pb-3 border-bottom">
+                        <div class="d-flex justify-content-between mb-2">
+                            <strong>Mercredi 15 Jan</strong>
+                            <span class="badge bg-warning text-dark">3 séances</span>
+                        </div>
+                        <div class="small text-muted">
+                            10:00, 14:00, 16:00
+                        </div>
+                    </div>
+                    
+                    <!-- Jeudi -->
+                    <div class="mb-3 pb-3 border-bottom">
+                        <div class="d-flex justify-content-between mb-2">
+                            <strong>Jeudi 16 Jan</strong>
+                            <span class="badge bg-primary">5 séances</span>
+                        </div>
+                        <div class="small text-muted">
+                            09:00, 11:00, 14:00, 16:00, 18:00
+                        </div>
+                    </div>
+                    
+                    <!-- Vendredi -->
+                    <div class="mb-3 pb-3 border-bottom">
+                        <div class="d-flex justify-content-between mb-2">
+                            <strong>Vendredi 17 Jan</strong>
+                            <span class="badge bg-success">4 séances</span>
+                        </div>
+                        <div class="small text-muted">
+                            09:00, 11:00, 14:00, 17:00
+                        </div>
+                    </div>
+                    
+                    <!-- Samedi -->
+                    <div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <strong>Samedi 18 Jan</strong>
+                            <span class="badge bg-info">2 séances</span>
+                        </div>
+                        <div class="small text-muted">
+                            09:00, 11:00
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Mes Sportifs Réguliers -->
+            <div class="card mt-4">
+                <div class="card-header bg-white py-3">
+                    <h5 class="mb-0 fw-bold">
+                        <i class="fas fa-users me-2 text-success"></i>
+                        Sportifs Réguliers
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <!-- Sportif 1 -->
+                    <div class="d-flex align-items-center mb-3 pb-3 border-bottom">
+                        <img src="https://i.pravatar.cc/50?img=15" alt="Sportif" class="rounded-circle me-3" width="50" height="50">
+                        <div class="flex-grow-1">
+                            <h6 class="mb-0 fw-bold">Sophie Martin</h6>
+                            <small class="text-muted">15 séances terminées</small>
+                            <div class="progress mt-1" style="height: 5px;">
+                                <div class="progress-bar bg-success" style="width: 75%"></div>
+                            </div>
+                        </div>
+                        <button class="btn btn-sm btn-outline-primary">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    
+                    <!-- Sportif 2 -->
+                    <div class="d-flex align-items-center mb-3 pb-3 border-bottom">
+                        <img src="https://i.pravatar.cc/50?img=25" alt="Sportif" class="rounded-circle me-3" width="50" height="50">
+                        <div class="flex-grow-1">
+                            <h6 class="mb-0 fw-bold">Marc Leblanc</h6>
+                            <small class="text-muted">12 séances terminées</small>
+                            <div class="progress mt-1" style="height: 5px;">
+                                <div class="progress-bar bg-info" style="width: 60%"></div>
+                            </div>
+                        </div>
+                        <button class="btn btn-sm btn-outline-primary">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    
+                    <!-- Sportif 3 -->
+                    <div class="d-flex align-items-center">
+                        <img src="https://i.pravatar.cc/50?img=30" alt="Sportif" class="rounded-circle me-3" width="50" height="50">
+                        <div class="flex-grow-1">
+                            <h6 class="mb-0 fw-bold">Julie Petit</h6>
+                            <small class="text-muted">8 séances terminées</small>
+                            <div class="progress mt-1" style="height: 5px;">
+                                <div class="progress-bar bg-warning" style="width: 40%"></div>
+                            </div>
+                        </div>
+                        <button class="btn btn-sm btn-outline-primary">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-footer bg-white text-center">
+                    <a href="#" class="text-decoration-none">
+                        Voir tous mes sportifs (28) <i class="fas fa-arrow-right ms-1"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Revenus du Mois -->
+            <div class="card mt-4">
+                <div class="card-header bg-white py-3">
+                    <h5 class="mb-0 fw-bold">
+                        <i class="fas fa-euro-sign me-2 text-warning"></i>
+                        Revenus du Mois
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="text-center mb-3">
+                        <h2 class="fw-bold text-success mb-0">2,025€</h2>
+                        <small class="text-muted">Janvier 2025</small>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between mb-1">
+                            <small>Objectif Mensuel</small>
+                            <small class="fw-bold">2,025€ / 2,500€</small>
+                        </div>
+                        <div class="progress" style="height: 25px;">
+                            <div class="progress-bar bg-success" style="width: 81%">81%</div>
+                        </div>
+                    </div>
+                    
+                    <hr>
+                    
+                    <div class="small">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Séances réalisées:</span>
+                            <strong>45</strong>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Tarif moyen:</span>
+                            <strong>45€</strong>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <span>Prévisionnel fin mois:</span>
+                            <strong class="text-success">2,700€</strong>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer bg-white text-center">
+                    <a href="#" class="text-decoration-none">
+                        Voir détails <i class="fas fa-arrow-right ms-1"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Avis Récents -->
+            <div class="card mt-4">
+                <div class="card-header bg-white py-3">
+                    <h5 class="mb-0 fw-bold">
+                        <i class="fas fa-star me-2 text-warning"></i>
+                        Derniers Avis
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <!-- Avis 1 -->
+                    <div class="mb-3 pb-3 border-bottom">
+                        <div class="d-flex align-items-start mb-2">
+                            <img src="https://i.pravatar.cc/40?img=15" alt="User" class="rounded-circle me-2" width="40" height="40">
+                            <div class="flex-grow-1">
+                                <div class="d-flex justify-content-between">
+                                    <strong class="small">Sophie Martin</strong>
+                                    <div class="small text-warning">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                </div>
+                                <p class="small text-muted mb-0">
+                                    "Excellent coach ! Très pro et motivant."
+                                </p>
+                                <small class="text-muted">Il y a 2 jours</small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Avis 2 -->
+                    <div class="mb-3 pb-3 border-bottom">
+                        <div class="d-flex align-items-start mb-2">
+                            <img src="https://i.pravatar.cc/40?img=25" alt="User" class="rounded-circle me-2" width="40" height="40">
+                            <div class="flex-grow-1">
+                                <div class="d-flex justify-content-between">
+                                    <strong class="small">Marc Leblanc</strong>
+                                    <div class="small text-warning">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                    </div>
+                                </div>
+                                <p class="small text-muted mb-0">
+                                    "Bon suivi et conseils pertinents."
+                                </p>
+                                <small class="text-muted">Il y a 5 jours</small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Avis 3 -->
+                    <div>
+                        <div class="d-flex align-items-start">
+                            <img src="https://i.pravatar.cc/40?img=30" alt="User" class="rounded-circle me-2" width="40" height="40">
+                            <div class="flex-grow-1">
+                                <div class="d-flex justify-content-between">
+                                    <strong class="small">Julie Petit</strong>
+                                    <div class="small text-warning">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                </div>
+                                <p class="small text-muted mb-0">
+                                    "Super accompagnement pour débutants !"
+                                </p>
+                                <small class="text-muted">Il y a 1 semaine</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer bg-white text-center">
+                    <a href="#" class="text-decoration-none">
+                        Voir tous les avis (156) <i class="fas fa-arrow-right ms-1"></i>
+                    </a>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+<!-- ========================================= -->
+<!-- MODALS -->
+<!-- ========================================= -->
+
+<!-- Modal Ajouter Séance -->
+<div class="modal fade" id="addSeanceModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header" style="background: linear-gradient(135deg, #4CAF50, #2196F3); color: white;">
+                <h5 class="modal-title">
+                    <i class="fas fa-plus-circle me-2"></i>Créer une Nouvelle Séance
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body p-4">
+                <form>
+                    <div class="mb-3">
+                        <label class="form-label">
+                            <i class="fas fa-dumbbell me-2"></i>Discipline *
+                        </label>
+                        <select class="form-select" required>
+                            <option value="">Sélectionnez...</option>
+                            <option>Musculation</option>
+                            <option>Cardio</option>
+                            <option>Yoga</option>
+                            <option>Pilates</option>
+                            <option>Crossfit</option>
+                            <option>Fitness</option>
+                        </select>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">
+                                <i class="fas fa-calendar me-2"></i>Date *
+                            </label>
+                            <input type="date" class="form-control" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">
+                                <i class="fas fa-clock me-2"></i>Heure *
+                            </label>
+                            <input type="time" class="form-control" required>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Durée *</label>
+                            <select class="form-select" required>
+                                <option value="30">30 min</option>
+                                <option value="60" selected>1 heure</option>
+                                <option value="90">1h30</option>
+                                <option value="120">2 heures</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">
+                                <i class="fas fa-euro-sign me-2"></i>Prix (€) *
+                            </label>
+                            <input type="number" class="form-control" value="45" required>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">
+                            <i class="fas fa-map-marker-alt me-2"></i>Lieu *
+                        </label>
+                        <input type="text" class="form-control" placeholder="Salle, Parc, Domicile..." required>
+                    </div>
+                    
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle me-2"></i>
+                        Cette séance sera visible et réservable par les sportifs
+                    </div>
+                    
+                    <button type="submit" class="btn btn-success btn-custom w-100 btn-lg">
+                        <i class="fas fa-plus-circle me-2"></i>Créer la Séance
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Modifier Séance -->
+<div class="modal fade" id="editSeanceModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header" style="background: linear-gradient(135deg, #FF9800, #FF5722); color: white;">
+                <h5 class="modal-title">
+                    <i class="fas fa-edit me-2"></i>Modifier la Séance
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body p-4">
+                <form>
+                    <div class="mb-3">
+                        <label class="form-label">Discipline</label>
+                        <select class="form-select">
+                            <option selected>Musculation</option>
+                            <option>Cardio</option>
+                            <option>Yoga</option>
+                        </select>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Date</label>
+                            <input type="date" class="form-control" value="2025-01-15">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Heure</label>
+                            <input type="time" class="form-control" value="10:00">
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Durée</label>
+                            <select class="form-select">
+                                <option value="60" selected>1 heure</option>
+                                <option value="90">1h30</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Prix (€)</label>
+                            <input type="number" class="form-control" value="45">
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Lieu</label>
+                        <input type="text" class="form-control" value="Salle Sport Plus">
+                    </div>
+                    
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-warning text-white btn-custom">
+                            <i class="fas fa-save me-2"></i>Enregistrer
+                        </button>
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Annuler</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Supprimer Séance -->
+<div class="modal fade" id="deleteSeanceModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title">
+                    <i class="fas fa-trash-alt me-2"></i>Supprimer la Séance
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body p-4 text-center">
+                <i class="fas fa-exclamation-triangle fa-4x text-warning mb-3"></i>
+                <h5 class="fw-bold mb-3">Êtes-vous sûr ?</h5>
+                <div class="alert alert-warning">
+                    <strong>Séance du 20/01/2025 à 10h00</strong><br>
+                    Musculation - Salle Sport Plus
+                </div>
+                <p class="text-muted">Cette action est irréversible.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                <button type="button" class="btn btn-danger">
+                    <i class="fas fa-trash-alt me-2"></i>Supprimer
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Détail Séance Coach -->
+<div class="modal fade" id="detailSeanceCoachModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header" style="background: linear-gradient(135deg, #4CAF50, #2196F3); color: white;">
+                <h5 class="modal-title">
+                    <i class="fas fa-info-circle me-2"></i>Détails de la Séance
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body p-4">
+                <div class="row">
+                    <div class="col-md-4 text-center">
+                        <img src="https://i.pravatar.cc/120?img=15" alt="Sportif" class="rounded-circle mb-3" width="120" height="120">
+                        <h5 class="fw-bold">Sophie Martin</h5>
+                        <p class="text-muted mb-2">Niveau: Intermédiaire</p>
+                        <span class="badge bg-info">15 séances avec vous</span>
+                    </div>
+                    <div class="col-md-8">
+                        <h6 class="fw-bold mb-3">Informations de la Séance</h6>
+                        <table class="table table-borderless">
+                            <tr>
+                                <td><i class="fas fa-dumbbell text-success me-2"></i><strong>Discipline:</strong></td>
+                                <td><span class="badge bg-primary">Musculation</span></td>
+                            </tr>
+                            <tr>
+                                <td><i class="fas fa-calendar text-info me-2"></i><strong>Date:</strong></td>
+                                <td>Aujourd'hui - 15 Jan 2025</td>
+                            </tr>
+                            <tr>
+                                <td><i class="fas fa-clock text-warning me-2"></i><strong>Horaire:</strong></td>
+                                <td>14:00 - 15:00 (1 heure)</td>
+                            </tr>
+                            <tr>
+                                <td><i class="fas fa-map-marker-alt text-danger me-2"></i><strong>Lieu:</strong></td>
+                                <td>Salle Sport Plus</td>
+                            </tr>
+                            <tr>
+                                <td><i class="fas fa-euro-sign text-success me-2"></i><strong>Prix:</strong></td>
+                                <td><strong class="text-success">45€</strong></td>
+                            </tr>
+                            <tr>
+                                <td><i class="fas fa-check-circle text-success me-2"></i><strong>Statut:</strong></td>
+                                <td><span class="badge bg-success">Confirmée</span></td>
+                            </tr>
+                        </table>
+                        
+                        <div class="alert alert-info mt-3">
+                            <strong><i class="fas fa-bullseye me-2"></i>Objectifs du sportif:</strong><br>
+                            Travail haut du corps, focus pectoraux et épaules
+                        </div>
+                        
+                        <div class="mt-3">
+                            <strong>Contact:</strong><br>
+                            <i class="fas fa-phone me-2"></i>+33 6 12 34 56 78<br>
+                            <i class="fas fa-envelope me-2"></i>sophie.martin@email.com
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#markCompletedModal">
+                    <i class="fas fa-check me-2"></i>Marquer comme terminée
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Marquer Terminée -->
+<div class="modal fade" id="markCompletedModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-success text-white">
+                <h5 class="modal-title">
+                    <i class="fas fa-check-circle me-2"></i>Marquer comme Terminée
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body p-4">
+                <div class="text-center mb-3">
+                    <i class="fas fa-check-circle fa-4x text-success mb-3"></i>
+                    <h6 class="fw-bold">Confirmer que la séance est terminée ?</h6>
+                </div>
+                
+                <div class="card bg-light mb-3">
+                    <div class="card-body">
+                        <p class="mb-1"><strong>Sportif:</strong> Sophie Martin</p>
+                        <p class="mb-1"><strong>Séance:</strong> Musculation</p>
+                        <p class="mb-0"><strong>Date:</strong> Aujourd'hui 14:00 - 15:00</p>
+                    </div>
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label">Notes de séance (facultatif)</label>
+                    <textarea class="form-control" rows="3" placeholder="Exercices effectués, remarques, progression..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                <button type="button" class="btn btn-success">
+                    <i class="fas fa-check-circle me-2"></i>Confirmer
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Annuler Séance (Coach) -->
+<div class="modal fade" id="cancelSeanceCoachModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title">
+                    <i class="fas fa-times-circle me-2"></i>Annuler la Séance
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body p-4">
+                <div class="alert alert-danger">
+                    <i class="fas fa-exclamation-triangle me-2"></i>
+                    <strong>Attention:</strong> Le sportif sera notifié de l'annulation.
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label"><strong>Raison de l'annulation *</strong></label>
+                    <select class="form-select mb-2" required>
+                        <option value="">Sélectionnez...</option>
+                        <option>Problème de santé</option>
+                        <option>Urgence personnelle</option>
+                        <option>Problème logistique</option>
+                        <option>Autre</option>
+                    </select>
+                    <textarea class="form-control" rows="2" placeholder="Message pour le sportif..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Retour</button>
+                <button type="button" class="btn btn-danger">
+                    <i class="fas fa-times-circle me-2"></i>Confirmer l'annulation
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Disponibilités -->
+<div class="modal fade" id="disponibilitesModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header" style="background: linear-gradient(135deg, #2196F3, #00BCD4); color: white;">
+                <h5 class="modal-title">
+                    <i class="fas fa-clock me-2"></i>Gérer mes Disponibilités
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body p-4">
+                <form>
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Jour</th>
+                                    <th>Disponible</th>
+                                    <th>Horaires</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Lundi</strong></td>
+                                    <td>
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" checked>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <input type="time" class="form-control form-control-sm d-inline-block w-auto" value="09:00">
+                                        -
+                                        <input type="time" class="form-control form-control-sm d-inline-block w-auto" value="19:00">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Mardi</strong></td>
+                                    <td>
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" checked>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <input type="time" class="form-control form-control-sm d-inline-block w-auto" value="09:00">
+                                        -
+                                        <input type="time" class="form-control form-control-sm d-inline-block w-auto" value="19:00">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Mercredi</strong></td>
+                                    <td>
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" checked>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <input type="time" class="form-control form-control-sm d-inline-block w-auto" value="09:00">
+                                        -
+                                        <input type="time" class="form-control form-control-sm d-inline-block w-auto" value="12:00">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Jeudi</strong></td>
+                                    <td>
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" checked>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <input type="time" class="form-control form-control-sm d-inline-block w-auto" value="09:00">
+                                        -
+                                        <input type="time" class="form-control form-control-sm d-inline-block w-auto" value="19:00">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Vendredi</strong></td>
+                                    <td>
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" checked>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <input type="time" class="form-control form-control-sm d-inline-block w-auto" value="09:00">
+                                        -
+                                        <input type="time" class="form-control form-control-sm d-inline-block w-auto" value="19:00">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Samedi</strong></td>
+                                    <td>
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" checked>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <input type="time" class="form-control form-control-sm d-inline-block w-auto" value="09:00">
+                                        -
+                                        <input type="time" class="form-control form-control-sm d-inline-block w-auto" value="13:00">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Dimanche</strong></td>
+                                    <td>
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <input type="time" class="form-control form-control-sm d-inline-block w-auto" disabled>
+                                        -
+                                        <input type="time" class="form-control form-control-sm d-inline-block w-auto" disabled>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-custom w-100">
+                        <i class="fas fa-save me-2"></i>Enregistrer les Disponibilités
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Modifier Profil Coach -->
+<div class="modal fade show" id="editProfileModal" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header" style="background: linear-gradient(135deg, #4CAF50, #2196F3); color: white;">
+                <h5 class="modal-title">
+                    <i class="fas fa-user-edit me-2"></i>Modifier Mon Profil
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body p-4">
+                <div class="text-center mb-4">
+                    <img src="https://i.pravatar.cc/150?img=12" alt="Photo" class="rounded-circle mb-3" style="width: 120px; height: 120px; border: 3px solid #4CAF50;">
+                    <div>
+                        <button class="btn btn-outline-primary btn-sm">
+                            <i class="fas fa-camera me-1"></i>Changer la photo
+                        </button>
+                    </div>
+                </div>
+                
+                <form>
+                    <h6 class="text-success mb-3">Informations Personnelles</h6>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Nom</label>
+                            <input type="text" class="form-control" value="Dupont">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Prénom</label>
+                            <input type="text" class="form-control" value="Jean">
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Téléphone</label>
+                            <input type="tel" class="form-control" value="+33 6 12 34 56 78">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control" value="jean.dupont@email.com">
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Adresse</label>
+                        <input type="text" class="form-control" value="Paris 15ème">
+                    </div>
+                    
+                    <hr class="my-4">
+                    <h6 class="text-info mb-3">Informations Professionnelles</h6>
+                    
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Niveau</label>
+                            <select class="form-select">
+                                <option value="expert" selected>Expert</option>
+                                <option value="professionnel">Professionnel</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Expérience (ans)</label>
+                            <input type="number" class="form-control" value="12">
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Tarif/h (€)</label>
+                            <input type="number" class="form-control" value="45">
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Description</label>
+                        <textarea class="form-control" rows="4">Coach sportif diplômé avec plus de 12 ans d'expérience...</textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-success btn-custom w-100">
+                        <i class="fas fa-save me-2"></i>Enregistrer
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Statistiques -->
+<div class="modal fade" id="statsModal" tabindex="-1">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header" style="background: linear-gradient(135deg, #FF9800, #FF5722); color: white;">
+                <h5 class="modal-title">
+                    <i class="fas fa-chart-line me-2"></i>Mes Statistiques Détaillées
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body p-4">
+                <div class="row mb-4">
+                    <div class="col-md-3">
+                        <div class="card text-center p-3" style="background: linear-gradient(135deg, #667eea, #764ba2); color: white;">
+                            <h3 class="fw-bold">45</h3>
+                            <p class="mb-0">Séances ce mois</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card text-center p-3" style="background: linear-gradient(135deg, #f093fb, #f5576c); color: white;">
+                            <h3 class="fw-bold">2,025€</h3>
+                            <p class="mb-0">Revenus</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card text-center p-3" style="background: linear-gradient(135deg, #4facfe, #00f2fe); color: white;">
+                            <h3 class="fw-bold">28</h3>
+                            <p class="mb-0">Sportifs actifs</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card text-center p-3" style="background: linear-gradient(135deg, #43e97b, #38f9d7); color: white;">
+                            <h3 class="fw-bold">4.8/5</h3>
+                            <p class="mb-0">Note moyenne</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <h6 class="fw-bold mb-3">Séances par Discipline</h6>
+                <div class="progress mb-2" style="height: 30px;">
+                    <div class="progress-bar bg-primary" style="width: 50%">Musculation (50%)</div>
+                </div>
+                <div class="progress mb-2" style="height: 30px;">
+                    <div class="progress-bar bg-success" style="width: 25%">Cardio (25%)</div>
+                </div>
+                <div class="progress mb-2" style="height: 30px;">
+                    <div class="progress-bar bg-info" style="width: 15%">Yoga (15%)</div>
+                </div>
+                <div class="progress mb-4" style="height: 30px;">
+                    <div class="progress-bar bg-warning" style="width: 10%">Fitness (10%)</div>
+                </div>
+                
+                <h6 class="fw-bold mb-3">Créneaux les Plus Demandés</h6>
+                <ul class="list-group">
+                    <li class="list-group-item d-flex justify-content-between">
+                        Lundi 18h-19h
+                        <span class="badge bg-primary rounded-pill">12 réservations</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between">
+                        Mercredi 10h-11h
+                        <span class="badge bg-primary rounded-pill">10 réservations</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between">
+                        Samedi 9h-10h
+                        <span class="badge bg-primary rounded-pill">9 réservations</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

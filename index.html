@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">  
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <title>Document</title>
+</head>
+<body>
+    <!-- Hero Section -->
+<section class="hero-section text-center">
+    <div class="container">
+        <h1 class="display-3 fw-bold mb-4">
+            <i class="fas fa-trophy me-3"></i>
+            Trouvez Votre Coach Sportif Idéal
+        </h1>
+        <p class="lead mb-5">
+            Réservez des séances avec les meilleurs coachs professionnels
+        </p>
+        <div class="d-flex justify-content-center gap-3">
+            <button class="btn btn-light btn-lg btn-custom" data-bs-toggle="modal" data-bs-target="#registerSportifModal">
+                <i class="fas fa-running me-2"></i>Je suis Sportif
+            </button>
+            <button class="btn btn-outline-light btn-lg btn-custom" data-bs-toggle="modal" data-bs-target="#registerCoachModal">
+                <i class="fas fa-user-tie me-2"></i>Je suis Coach
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- Statistiques -->
+<div class="container mb-5">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="stat-card text-center">
+                <h1 class="display-4 fw-bold">250+</h1>
+                <p class="mb-0"><i class="fas fa-users me-2"></i>Coachs Certifiés</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-card text-center" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                <h1 class="display-4 fw-bold">1500+</h1>
+                <p class="mb-0"><i class="fas fa-calendar-check me-2"></i>Séances Réservées</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-card text-center" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                <h1 class="display-4 fw-bold">30+</h1>
+                <p class="mb-0"><i class="fas fa-dumbbell me-2"></i>Disciplines</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-card text-center" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">
+                <h1 class="display-4 fw-bold">4.8/5</h1>
+                <p class="mb-0"><i class="fas fa-star me-2"></i>Note Moyenne</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Coachs Populaires -->
+<div class="container">
+    <h2 class="text-center mb-5">
+        <i class="fas fa-star text-warning me-2"></i>
+        Nos Coachs les Mieux Notés
+    </h2>
+    <div class="row">
+        <!-- Coach Card 1 -->
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <img src="https://i.pravatar.cc/150?img=12" alt="Coach" class="coach-photo mb-3">
+                    <h5 class="card-title fw-bold">Jean Dupont</h5>
+                    <p class="text-muted mb-2">
+                        <i class="fas fa-running me-1"></i>Musculation, Fitness
+                    </p>
+                    <div class="rating-stars mb-2">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <span class="ms-2 text-muted">(4.8/5)</span>
+                    </div>
+                    <p class="mb-3">
+                        <span class="badge bg-success">Expert</span>
+                        <span class="badge bg-info ms-2">12 ans d'expérience</span>
+                    </p>
+                    <p class="text-primary fw-bold fs-4">45€/h</p>
+                    <button class="btn btn-primary-custom btn-custom w-100" data-bs-toggle="modal" data-bs-target="#coachDetailModal">
+                        <i class="fas fa-eye me-2"></i>Voir le profil
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Coach Card 2 -->
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <img src="https://i.pravatar.cc/150?img=47" alt="Coach" class="coach-photo mb-3">
+                    <h5 class="card-title fw-bold">Marie Laurent</h5>
+                    <p class="text-muted mb-2">
+                        <i class="fas fa-heart me-1"></i>Yoga, Pilates
+                    </p>
+                    <div class="rating-stars mb-2">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <span class="ms-2 text-muted">(5.0/5)</span>
+                    </div>
+                    <p class="mb-3">
+                        <span class="badge bg-success">Professionnel</span>
+                        <span class="badge bg-info ms-2">8 ans d'expérience</span>
+                    </p>
+                    <p class="text-primary fw-bold fs-4">40€/h</p>
+                    <button class="btn btn-primary-custom btn-custom w-100" data-bs-toggle="modal" data-bs-target="#coachDetailModal">
+                        <i class="fas fa-eye me-2"></i>Voir le profil
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Coach Card 3 -->
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <img src="https://i.pravatar.cc/150?img=33" alt="Coach" class="coach-photo mb-3">
+                    <h5 class="card-title fw-bold">Thomas Martin</h5>
+                    <p class="text-muted mb-2">
+                        <i class="fas fa-bicycle me-1"></i>Crossfit, Cardio
+                    </p>
+                    <div class="rating-stars mb-2">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <span class="ms-2 text-muted">(4.5/5)</span>
+                    </div>
+                    <p class="mb-3">
+                        <span class="badge bg-warning text-dark">Avancé</span>
+                        <span class="badge bg-info ms-2">5 ans d'expérience</span>
+                    </p>
+                    <p class="text-primary fw-bold fs-4">38€/h</p>
+                    <button class="btn btn-primary-custom btn-custom w-100" data-bs-toggle="modal" data-bs-target="#coachDetailModal">
+                        <i class="fas fa-eye me-2"></i>Voir le profil
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center mt-5">
+        <a href="pages/sportif/coaches_list.php" class="btn btn-primary-custom btn-custom btn-lg">
+            <i class="fas fa-users me-2"></i>Voir Tous les Coachs
+        </a>
+    </div>
+</div>
+
+<!-- Comment ça marche -->
+<div class="container my-5 py-5">
+    <h2 class="text-center mb-5">
+        <i class="fas fa-question-circle me-2"></i>
+        Comment Ça Marche ?
+    </h2>
+    <div class="row text-center">
+        <div class="col-md-3">
+            <div class="mb-3">
+                <i class="fas fa-user-plus fa-4x text-primary"></i>
+            </div>
+            <h5 class="fw-bold">1. Inscrivez-vous</h5>
+            <p class="text-muted">Créez votre compte gratuitement en quelques clics</p>
+        </div>
+        <div class="col-md-3">
+            <div class="mb-3">
+                <i class="fas fa-search fa-4x text-success"></i>
+            </div>
+            <h5 class="fw-bold">2. Trouvez un Coach</h5>
+            <p class="text-muted">Parcourez les profils et choisissez votre coach idéal</p>
+        </div>
+        <div class="col-md-3">
+            <div class="mb-3">
+                <i class="fas fa-calendar-check fa-4x text-warning"></i>
+            </div>
+            <h5 class="fw-bold">3. Réservez</h5>
+            <p class="text-muted">Sélectionnez un créneau et réservez votre séance</p>
+        </div>
+        <div class="col-md-3">
+            <div class="mb-3">
+                <i class="fas fa-dumbbell fa-4x text-danger"></i>
+            </div>
+            <h5 class="fw-bold">4. Entraînez-vous</h5>
+            <p class="text-muted">Profitez de votre séance avec votre coach</p>
+        </div>
+    </div>
+</div>
+</body>
+</html>
